@@ -1,27 +1,31 @@
 <?xml version="1.0"?>
 <listaEmpresas>
-    <empresa id="$codigoEmpresa">
-        <nombre>carol</nombre>
-        <abreviatura>$abreviatura </abreviatura>
+    <empresa id="Empresa1">
+        <nombre>Empresa de Prueba</nombre>
+        <abreviatura>Empa</abreviatura>
         <listaPuntosAtencion>
-            <puntoAtencion id="$codigoPunto">
-                <nombre>$nombrePuntoServicio </nombre>
-                <direccion>$direccionPuntoServicio </direccion>
+            <puntoAtencion id="Punto1">
+                <nombre>Punto uno </nombre>
+                <direccion>Ciudad Guatemala</direccion>
                 <listaEscritorios>
-                    <escritorio id="$codigoEscritorio">
-                        <identificacion>$identificacionEscritorio </identificacion>
-                        <encargado>$nombreEncargado </encargado>
+                    <escritorio id="Escritorio1">
+                        <identificacion>Escritorio uno</identificacion>
+                        <encargado>Encargado1</encargado>
+                    </escritorio>
+                    <escritorio id="Escritorio2">
+                        <identificacion>Escritorio dos</identificacion>
+                        <encargado>Encargado2</encargado>
                     </escritorio>
                 </listaEscritorios>
             </puntoAtencion>
         </listaPuntosAtencion>
         <listaTransacciones>
-            <transaccion id="$codigoTransaccion">
-                <nombre>$nombreTransaccion </nombre>
-                <tiempoAtencion>minutosAtencion </tiempoAtencion>
+            <transaccion id="Trans1">
+                <nombre>Transaccion 1</nombre>
+                <tiempoAtencion>10</tiempoAtencion>
             </transaccion>
-            <transaccion id="2">
-                <nombre>crick</nombre>
+            <transaccion id="Trans2">
+                <nombre>Transaccion 2</nombre>
                 <tiempoAtencion>13</tiempoAtencion>
             </transaccion>
         </listaTransacciones>

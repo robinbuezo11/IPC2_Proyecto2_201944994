@@ -1,7 +1,7 @@
 from Config import Config
 
 class NodeConfig:
-    def __init__(self, config = Config(), next = Config()):
+    def __init__(self, config = Config(), next = None):
         self.__config = config
         self.__next = next
 

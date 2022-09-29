@@ -1,7 +1,7 @@
 from Client import Client
 
 class NodeClient:
-    def __init__(self, client = Client(), next = Client()):
+    def __init__(self, client = Client(), next = None):
         self.__client = client
         self.__next = next
 

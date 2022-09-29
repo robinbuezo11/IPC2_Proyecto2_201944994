@@ -1,7 +1,7 @@
 from AttentionPoint import AttentionPoint
 
 class NodePoint:
-    def __init__(self, point = AttentionPoint(), next = AttentionPoint()):
+    def __init__(self, point = AttentionPoint(), next = None):
         self.__point = point
         self.__next = next
 

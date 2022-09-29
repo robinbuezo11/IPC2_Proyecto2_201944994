@@ -1,7 +1,7 @@
 from ServiceDesk import ServiceDesk
 
 class NodeDesk:
-    def __init__(self, desk = ServiceDesk(), next = ServiceDesk()):
+    def __init__(self, desk = ServiceDesk(), next = None):
         self.__desk = desk
         self.__next = next
 

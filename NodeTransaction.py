@@ -1,7 +1,7 @@
 from Transaction import Transaction
 
 class NodeTransaction:
-    def __init__(self, transaction = Transaction(), next = Transaction()):
+    def __init__(self, transaction = Transaction(), next = None):
         self.__transaction = transaction
         self.__next = next
 

@@ -62,6 +62,7 @@ class ManagerXml():
                             transactions.insert(transaction=transaction)
                         enterprise.setTransactions(transactions=transactions)
                 enterprises.insert(enterprise=enterprise)
+            print(Fore.GREEN + 'XML cargado exitosamente')
             return enterprises
         except Exception as e:
             print(Fore.RED + f'{e}')
@@ -94,6 +95,7 @@ class ManagerXml():
                             clients.insert(client=client)
                         config.setClients(clients=clients)
                 configs.insert(config=config)
+            print(Fore.GREEN + 'XML cargado exitosamente')
             return configs
         except Exception as e:
             print(Fore.RED + f'{e}')

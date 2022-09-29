@@ -1,7 +1,7 @@
 from Enterprise import Enterprise
 
 class NodeEnterprise:
-    def __init__(self, enterprise = Enterprise(), next = Enterprise()):
+    def __init__(self, enterprise = Enterprise(), next = None):
         self.__enterprise = enterprise
         self.__next = next
 

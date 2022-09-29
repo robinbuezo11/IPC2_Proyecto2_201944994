@@ -19,5 +19,5 @@ class ListPoint:
 
         nodeaux=self.__first
         while nodeaux.getNext():
-            nodeaux.setNext(nodeaux.getNext())
+            nodeaux = nodeaux.getNext()
         nodeaux.setNext(NodePoint(point=point))

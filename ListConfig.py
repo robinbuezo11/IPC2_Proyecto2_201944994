@@ -19,5 +19,5 @@ class ListConfig:
 
         nodeaux=self.__first
         while nodeaux.getNext():
-            nodeaux.setNext(nodeaux.getNext())
+            nodeaux = nodeaux.getNext()
         nodeaux.setNext(NodeConfig(config=config))
