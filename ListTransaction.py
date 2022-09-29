@@ -1,4 +1,5 @@
 from NodeTransaction import NodeTransaction
+from Transaction import Transaction
 
 class ListTransaction:
     def __init__(self):
@@ -9,3 +10,14 @@ class ListTransaction:
 
     def setFirst(self, first = NodeTransaction()):
         self.__first = first
+
+    def insert(self, transaction = Transaction()):
+        
+        if self.__first.getTransaction().getCode() == None:
+            self.__first = NodeTransaction(transaction=transaction)
+            return
+
+        nodeaux=self.__first
+        while nodeaux.getNext():
+            nodeaux.setNext(nodeaux.getNext())
+        nodeaux.setNext(NodeTransaction(transaction=transaction))

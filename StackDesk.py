@@ -1,5 +1,6 @@
-from lib2to3.pytree import Node
+from colorama import Fore
 from NodeDesk import NodeDesk
+from ServiceDesk import ServiceDesk
 
 class StackDesk:
     def __init__(self):
@@ -10,3 +11,25 @@ class StackDesk:
 
     def setFirst(self, first = NodeDesk()):
         self.__first = first
+
+    def stack(self, desk = ServiceDesk()):
+        stackdesk = NodeDesk(desk=desk)
+
+        if self.__first.getDesk().getCode() == None:
+            self.__first = stackdesk
+        else:
+            stackdesk.setNext(self.__first)
+            self.__first = stackdesk
+
+    def unstack(self):
+        if self.__first.getDesk().getCode() == None:
+            print(Fore.RED + 'No existe ningún escritorio')
+            return
+
+        unstackdesk = self.__first
+        if self.__first.getNext():
+            self.__first = self.__first.getNext()
+        else:
+            self.__first = NodeDesk()
+        unstackdesk.setNext(None)
+        return unstackdesk
