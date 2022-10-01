@@ -1,3 +1,4 @@
+from colorama import Fore
 from AttentionPoint import AttentionPoint
 from NodePoint import NodePoint
 
@@ -15,9 +16,16 @@ class ListPoint:
         
         if self.__first.getPoint().getCode() == None:
             self.__first = NodePoint(point=point)
-            return
+            return True
 
         nodeaux=self.__first
         while nodeaux.getNext():
+            if nodeaux.getPoint().getCode() == point.getCode():
+                print(Fore.RED + f'El punto {point.getCode()} ya existe en la lista')
+                return False
             nodeaux = nodeaux.getNext()
+        if nodeaux.getPoint().getCode() == point.getCode():
+            print(Fore.RED + f'El punto {point.getCode()} ya existe en la lista')
+            return False
         nodeaux.setNext(NodePoint(point=point))
+        return True

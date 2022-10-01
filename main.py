@@ -1,58 +1,116 @@
 from colorama import Fore
+from AttentionPoint import AttentionPoint
+from Enterprise import Enterprise
 from ListConfig import ListConfig
 from ListEnterprise import ListEnterprise
+from ListPoint import ListPoint
+from ListTransaction import ListTransaction
 from ManagerXml import ManagerXml
+from ServiceDesk import ServiceDesk
+from StackDesk import StackDesk
+from Transaction import Transaction
 
 def main():
     
     xml = ManagerXml()
     enterprises = ListEnterprise()
     configs = ListConfig()
+    enterprise = Enterprise()
+    point = AttentionPoint()
     
-    option = 0
-    while option != 9:
-        print(Fore.BLUE + '\n------------------MENU------------------')
-        print(Fore.BLUE + '1) Cargar XML')
-        print(Fore.BLUE + '2) ')
-        print(Fore.BLUE + '3) ')
-        print(Fore.BLUE + '9) SALIR\n')
+    try:
+        option = 0
+        while option != 9:
+            print(Fore.BLUE + '\n------------------MENU------------------')
+            print(Fore.BLUE + '1) Configuración de Empresas')
+            print(Fore.BLUE + '2) Selección de Empresa y Punto de Atención')
+            print(Fore.BLUE + '3) ')
+            print(Fore.BLUE + '9) SALIR\n')
         
-        try:
             textin = input(Fore.YELLOW + "Ingrese el numero de la opción que desee ")
             if textin != '':
                 option = int(textin)
             else:
                 option = 0
-        except Exception as e:
-            print(Fore.RED + f'{e}')
 
-        if option == 1:
-            
-            optionxml = 0
-            while optionxml != 9:
-                print(Fore.BLUE + '\n1) Empresa')
-                print(Fore.BLUE + '2) Configuración')
-                print(Fore.BLUE + '9) SALIR\n')
+            if option == 1:
+                optionxml = 0
+                while optionxml != 9:
+                    print(Fore.BLUE + '\n1) Limpiar sistema')
+                    print(Fore.BLUE + '2) Cargar archivo con los datos del sistema')
+                    print(Fore.BLUE + '3) Crear nueva empresa')
+                    print(Fore.BLUE + '4) Cargar archivo de configuración inicial')
+                    print(Fore.BLUE + '9) SALIR\n')
 
-                try:
-                    textinxml = input(Fore.YELLOW + "Ingrese el numero del XML que desee cargar ")
+                    textinxml = input(Fore.YELLOW + "Ingrese el numero de la opción que desee ")
                     if textinxml != '':
                         optionxml = int(textinxml)
                     else:
                         optionxml = 0
-                except Exception as e:
-                    print(Fore.RED + f'{e}')
 
-                if optionxml == 1:
-                    try:
-                        path = input(Fore.YELLOW + "Ingrese la ruta del archivo: ")
+                    if optionxml == 1:
+                        enterprises = ListEnterprise()
+                        configs = ListConfig()
+                        print(Fore.GREEN + '\nLimpieza del sistema realizada con exito')
+                    elif optionxml == 2:
+                        path = input(Fore.YELLOW + "\nIngrese la ruta del archivo: ")
                         enterprises = xml.readEnterprises(path=path,enterprises=enterprises)
-                    except Exception as e:
-                        print(Fore.RED + f'{e}')
-                elif optionxml == 2:
-                    try:
-                        path = input(Fore.YELLOW + "Ingrese la ruta del archivo: ")
+                    elif optionxml == 3:
+                        dataenterprise = input(Fore.YELLOW + "\nIngrese los datos de la empresa con el formato 'id,nombre,abreviatura' ")
+                        dataenterprise = dataenterprise.split(',')
+                        points = ListPoint()
+                        transactions = ListTransaction()
+                        if len(dataenterprise) == 3:  
+                            exitpoint = 0
+                            while exitpoint != 9:
+                                datapoint = input(Fore.YELLOW + "\n\tIngrese los datos del punto con el formato 'id,nombre,dirección' o '9' para CONFIRMAR ")
+                                if datapoint == '9':
+                                    exitpoint = 9
+                                else:
+                                    datapoint = datapoint.split(',')
+                                    desks = StackDesk()
+                                    if len(datapoint) == 3:
+                                        exitdesk = 0
+                                        while exitdesk != 9:
+                                            datadesk = input(Fore.YELLOW + "\n\t\tIngrese los datos del escritorio con el formato 'id,identificación,encargado' o '9' para CONFIRMAR ")
+                                            if datadesk == '9':
+                                                exitdesk = 9
+                                            else:
+                                                datadesk = datadesk.split(',')
+                                                if len(datadesk) == 3:
+                                                    desk = ServiceDesk(code=datadesk[0].strip(), id=datadesk[1].strip(), manager=datadesk[2].strip())
+                                                    if desks.stack(desk=desk):
+                                                        print(Fore.GREEN + '\t\tEscritorio agregado exitosamente')
+                                                else:
+                                                    print(Fore.RED + '\t\tLa cantidad de parametros ingresados no es la correcta')
+                                        point = AttentionPoint(code=datapoint[0].strip(), name=datapoint[1].strip(), address=datapoint[2].strip(), desks=desks)
+                                        if points.insert(point=point):
+                                            print(Fore.GREEN + '\tPunto agregado exitosamente')
+                                    else:
+                                        print(Fore.RED + '\tLa cantidad de parametros ingresados no es la correcta')
+                            exittrans = 0
+                            while exittrans != 9:
+                                datatrans = input(Fore.YELLOW + "\n\tIngrese los datos de la transacción con el formato 'id,nombre,tiempo' o '9' para CONFIRMAR ")
+                                if datatrans == '9':
+                                    exittrans = 9
+                                else:
+                                    datatrans = datatrans.split(',')
+                                    if len(datatrans) == 3 and datatrans[2].strip() != '':
+                                        transaction = Transaction(code=datadesk[0].strip(), name=datadesk[1].strip(), time=int(datadesk[2].strip()))
+                                        if transactions.insert(transaction=transaction):
+                                            print(Fore.GREEN + '\tTransacción agregada exitosamente')
+                                    else:
+                                        print(Fore.RED + '\tLa cantidad de parametros ingresados no es la correcta')
+                            enterprise = Enterprise(code=dataenterprise[0].strip(), name=dataenterprise[1].strip(), shortname=dataenterprise[2].strip, points=points, transactions=transactions)
+                            if enterprises.insert(enterprise=enterprise):
+                                print(Fore.GREEN + 'Empresa agregada exitosamente')
+                        else:
+                            print(Fore.RED + 'La cantidad de parametros ingresados no es la correcta')
+                    elif optionxml == 4:
+                        path = input(Fore.YELLOW + "\nIngrese la ruta del archivo: ")
                         configs = xml.readConfigs(path=path,configs=configs)
-                    except Exception as e:
-                        print(Fore.RED + f'{e}')
+            elif option == 2:
+                pass
+    except Exception as e:
+            print(Fore.RED + f'{e}')
 main()

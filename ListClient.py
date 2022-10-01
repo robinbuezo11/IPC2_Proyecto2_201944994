@@ -1,3 +1,4 @@
+from colorama import Fore
 from Client import Client
 from NodeClient import NodeClient
 
@@ -15,9 +16,16 @@ class ListClient:
         
         if self.__first.getClient().getDpi() == None:
             self.__first = NodeClient(client=client)
-            return
+            return True
 
         nodeaux=self.__first
         while nodeaux.getNext():
+            if nodeaux.getClient().getDpi() == client.getDpi():
+                print(Fore.RED + f'El DPI {client.getDpi()} ya existe en la lista')
+                return False
             nodeaux = nodeaux.getNext()
+        if nodeaux.getClient().getDpi() == client.getDpi():
+            print(Fore.RED + f'El DPI {client.getDpi()} ya existe en la lista')
+            return False
         nodeaux.setNext(NodeClient(client=client))
+        return True

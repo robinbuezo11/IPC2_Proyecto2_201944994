@@ -1,3 +1,4 @@
+from colorama import Fore
 from Enterprise import Enterprise
 from NodeEnterprise import NodeEnterprise
 
@@ -15,9 +16,16 @@ class ListEnterprise:
         
         if self.__first.getEnterprise().getCode() == None:
             self.__first = NodeEnterprise(enterprise=enterprise)
-            return
+            return True
 
         nodeaux=self.__first
         while nodeaux.getNext():
+            if nodeaux.getEnterprise().getCode() == enterprise.getCode():
+                print(Fore.RED + f'La empresa {enterprise.getCode()} ya existe en la lista')
+                return False
             nodeaux = nodeaux.getNext()
+        if nodeaux.getEnterprise().getCode() == enterprise.getCode():
+            print(Fore.RED + f'La empresa {enterprise.getCode()} ya existe en la lista')
+            return False
         nodeaux.setNext(NodeEnterprise(enterprise=enterprise))
+        return True

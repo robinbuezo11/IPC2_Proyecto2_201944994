@@ -15,11 +15,19 @@ class StackDesk:
     def stack(self, desk = ServiceDesk()):
         stackdesk = NodeDesk(desk=desk)
 
+        nodeaux = self.__first
+        while nodeaux:
+            if nodeaux.getDesk().getCode() == desk.getCode():
+                print(Fore.RED + f'El escritorio {desk.getCode()} ya existe en la lista')
+                return False
+            nodeaux = nodeaux.getNext()
+
         if self.__first.getDesk().getCode() == None:
             self.__first = stackdesk
         else:
             stackdesk.setNext(self.__first)
             self.__first = stackdesk
+        return True
 
     def unstack(self):
         if self.__first.getDesk().getCode() == None:
