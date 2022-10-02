@@ -66,7 +66,6 @@ class ManagerXml():
             return enterprises
         except Exception as e:
             print(Fore.RED + f'{e}')
-        
     def readConfigs(self, path, configs = ListConfig()):
         tree = et.parse(path)
         root = tree.getroot()
@@ -89,8 +88,7 @@ class ManagerXml():
                                 elif dataclient.tag == 'listadoTransacciones':
                                     transactions = ListTransaction()
                                     for itrtransaction in dataclient:
-                                        for iter in range(int(itrtransaction.attrib['cantidad'])):
-                                            transactions.insert(Transaction(code=itrtransaction.attrib['idTransaccion']))
+                                        transactions.insert(Transaction(code=itrtransaction.attrib['idTransaccion'], quantity=int(itrtransaction.attrib['cantidad'])))
                                     client.setTransactions(transactions=transactions)
                             clients.insert(client=client)
                         config.setClients(clients=clients)
@@ -99,3 +97,4 @@ class ManagerXml():
             return configs
         except Exception as e:
             print(Fore.RED + f'{e}')
+

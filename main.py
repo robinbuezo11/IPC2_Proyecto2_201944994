@@ -24,7 +24,7 @@ def main():
             print(Fore.BLUE + '\n------------------MENU------------------')
             print(Fore.BLUE + '1) Configuración de Empresas')
             print(Fore.BLUE + '2) Selección de Empresa y Punto de Atención')
-            print(Fore.BLUE + '3) ')
+            print(Fore.BLUE + '3) Manejo de Puntos de Atención')
             print(Fore.BLUE + '9) SALIR\n')
         
             textin = input(Fore.YELLOW + "Ingrese el numero de la opción que desee ")
@@ -109,6 +109,7 @@ def main():
                     elif optionxml == 4:
                         path = input(Fore.YELLOW + "\nIngrese la ruta del archivo: ")
                         configs = xml.readConfigs(path=path,configs=configs)
+                        configs.applyConfig(enterprises)
             elif option == 2:
                 optionenterprise = 0
                 while optionenterprise != 'Regresar':
@@ -136,6 +137,8 @@ def main():
                                         print(Fore.RED + 'El código del punto ingresado no existe dentro de la lista')
                         else: 
                             print(Fore.RED + 'El código de empresa ingresado no existe dentro de la lista')
+            elif option == 3:
+                option
     except Exception as e:
             print(Fore.RED + f'{e}')
 main()
