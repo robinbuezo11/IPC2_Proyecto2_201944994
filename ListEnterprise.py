@@ -29,3 +29,23 @@ class ListEnterprise:
             return False
         nodeaux.setNext(NodeEnterprise(enterprise=enterprise))
         return True
+
+    def toString(self):
+        if self.__first.getEnterprise().getCode() == None:
+            return Fore.RED + 'No existe ninguna empresa en la lista'
+        
+        nodeaux = self.__first
+        string = ''
+        while nodeaux:
+            string += nodeaux.getEnterprise().toStringWithoutPoints()
+            string += '\n'
+            nodeaux = nodeaux.getNext()
+        return string
+
+    def getEnterpriseByCode(self, code):
+        nodeaux = self.__first
+        while nodeaux:
+            if nodeaux.getEnterprise().getCode() == code:
+                return nodeaux.getEnterprise()
+            nodeaux = nodeaux.getNext()
+        return Enterprise()

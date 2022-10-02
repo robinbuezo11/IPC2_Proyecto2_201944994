@@ -27,3 +27,6 @@ class AttentionPoint:
 
     def setDesks(self, desks = StackDesk()):
         self.__desks = desks
+
+    def toStringWithoutDesks(self):
+        return f'Código: {self.__code},     Nombre: {self.__name},      Dirección: {self.__address}'

@@ -29,3 +29,23 @@ class ListPoint:
             return False
         nodeaux.setNext(NodePoint(point=point))
         return True
+    
+    def toString(self):
+        if self.__first.getPoint().getCode() == None:
+            return Fore.RED + 'No existe ningun punto en la lista'
+        
+        nodeaux = self.__first
+        string = ''
+        while nodeaux:
+            string += nodeaux.getPoint().toStringWithoutDesks()
+            string += '\n'
+            nodeaux = nodeaux.getNext()
+        return string
+
+    def getPointByCode(self, code):
+        nodeaux = self.__first
+        while nodeaux:
+            if nodeaux.getPoint().getCode() == code:
+                return nodeaux.getPoint()
+            nodeaux = nodeaux.getNext()
+        return AttentionPoint()

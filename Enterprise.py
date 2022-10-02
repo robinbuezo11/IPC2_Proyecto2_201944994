@@ -5,7 +5,7 @@ class Enterprise:
     def __init__(self, code=None, name=None, shortname=None, points = ListPoint(), transactions = ListTransaction()):
         self.__code = code
         self.__name = name
-        self.__shorname = shortname
+        self.__shortname = shortname
         self.__points = points
         self.__transactions = transactions
 
@@ -16,7 +16,7 @@ class Enterprise:
         return self.__name
 
     def getShorName(self):
-        return self.__shorname
+        return self.__shortname
 
     def getPoints(self):
         return self.__points
@@ -28,10 +28,13 @@ class Enterprise:
         self.__name = name
 
     def setShorName(self, shortname):
-        self.__shorname = shortname
+        self.__shortname = shortname
 
     def setPoints(self, points = ListPoint):
         self.__points = points
 
     def setTransactions(self, transactions = ListTransaction()):
         self.__transactions = transactions
+
+    def toStringWithoutPoints(self):
+        return f'Código: {self.__code},     Nombre: {self.__name},      Abreviatura: {self.__shortname}'

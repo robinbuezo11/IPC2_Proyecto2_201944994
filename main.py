@@ -15,8 +15,8 @@ def main():
     xml = ManagerXml()
     enterprises = ListEnterprise()
     configs = ListConfig()
-    enterprise = Enterprise()
-    point = AttentionPoint()
+    testenterprise = Enterprise()
+    testpoint = AttentionPoint()
     
     try:
         option = 0
@@ -28,7 +28,7 @@ def main():
             print(Fore.BLUE + '9) SALIR\n')
         
             textin = input(Fore.YELLOW + "Ingrese el numero de la opción que desee ")
-            if textin != '':
+            if textin != '' and str.isdigit(textin):
                 option = int(textin)
             else:
                 option = 0
@@ -43,7 +43,7 @@ def main():
                     print(Fore.BLUE + '9) SALIR\n')
 
                     textinxml = input(Fore.YELLOW + "Ingrese el numero de la opción que desee ")
-                    if textinxml != '':
+                    if textinxml != '' and str.isdigit(textin):
                         optionxml = int(textinxml)
                     else:
                         optionxml = 0
@@ -110,7 +110,32 @@ def main():
                         path = input(Fore.YELLOW + "\nIngrese la ruta del archivo: ")
                         configs = xml.readConfigs(path=path,configs=configs)
             elif option == 2:
-                pass
+                optionenterprise = 0
+                while optionenterprise != 'Regresar':
+                    print(Fore.CYAN + '\n------------------EMPRESAS------------------')
+                    print(enterprises.toString())
+                    optionenterprise = input(Fore.YELLOW + "\nIngrese código de la empresa que desee o 'Regresar' para REGRESAR ")
+                    if optionenterprise != 'Regresar':
+                        testenterprise = enterprises.getEnterpriseByCode(optionenterprise)
+                        if testenterprise.getCode() != None:
+                            optionpoint = 0
+                            while optionpoint != 'Regresar':
+                                print(Fore.CYAN + '\n------------------PUNTOS------------------')
+                                print(testenterprise.getPoints().toString())
+                                optionpoint = input(Fore.YELLOW + "\nIngrese código del punto que desee o 'Regresar' para REGRESAR ")
+                                if optionpoint != 'Regresar':
+                                    testpoint = testenterprise.getPoints().getPointByCode(optionpoint)
+                                    if testpoint.getCode() != None:
+                                        print(Fore.GREEN + 'Selección completada correctamente')
+                                        print(Fore.CYAN + '\n------------------SELECCION------------------')
+                                        print(testenterprise.toStringWithoutPoints())
+                                        print(testpoint.toStringWithoutDesks())
+                                        optionpoint = 'Regresar'
+                                        optionenterprise = 'Regresar'
+                                    else:
+                                        print(Fore.RED + 'El código del punto ingresado no existe dentro de la lista')
+                        else: 
+                            print(Fore.RED + 'El código de empresa ingresado no existe dentro de la lista')
     except Exception as e:
             print(Fore.RED + f'{e}')
 main()
