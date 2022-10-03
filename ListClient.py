@@ -57,3 +57,40 @@ class ListClient:
             num += 1
             nodeaux = nodeaux.getNext()
         return num
+
+    def getAvgTimeInLine(self):
+        if self.__first.getClient().getName() == None:
+            return 0
+        
+        nodeaux = self.__first
+        time=0
+        num = 0
+        while nodeaux:
+            time += nodeaux.getClient().getTimeWait()
+            num += 1
+            nodeaux = nodeaux.getNext()
+        return time/num
+
+    def getMaxTimeInLine(self):
+        if self.__first.getClient().getName() == None:
+            return 0
+        
+        nodeaux = self.__first
+        time=0
+        while nodeaux:
+            if nodeaux.getClient().getTimeWait()>time:
+                time = nodeaux.getClient().getTimeWait()
+            nodeaux = nodeaux.getNext()
+        return time
+
+    def getMinTimeInLine(self):
+        if self.__first.getClient().getName() == None:
+            return 0
+        
+        nodeaux = self.__first
+        time=nodeaux.getClient().getTimeWait()
+        while nodeaux:
+            if nodeaux.getClient().getTimeWait()<time:
+                time = nodeaux.getClient().getTimeWait()
+            nodeaux = nodeaux.getNext()
+        return time

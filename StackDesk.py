@@ -41,3 +41,15 @@ class StackDesk:
             self.__first = NodeDesk()
         unstackdesk.setNext(None)
         return unstackdesk
+
+    def getActiveDesks(self):
+        if self.__first.getDesk().getCode() == None:
+            return 0
+        
+        nodeaux = self.__first
+        num = 0
+        while nodeaux:
+            if nodeaux.getDesk().getActive() == True:
+                num += 1
+            nodeaux = nodeaux.getNext()
+        return num
