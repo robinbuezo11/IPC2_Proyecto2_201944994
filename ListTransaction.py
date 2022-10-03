@@ -29,3 +29,34 @@ class ListTransaction:
             return False
         nodeaux.setNext(NodeTransaction(transaction=transaction))
         return True
+
+    def toString(self):
+        if self.__first.getTransaction().getCode() == None:
+            return Fore.RED + 'No existe ninguna transacción en la lista'
+        
+        nodeaux = self.__first
+        string = ''
+        while nodeaux:
+            string += nodeaux.getTransaction().toString()
+            string += '\n'
+            nodeaux = nodeaux.getNext()
+        return string
+
+    def getTime(self):
+        if self.__first.getTransaction().getCode() == None:
+            return 0
+        
+        nodeaux = self.__first
+        time = 0
+        while nodeaux:
+            time += nodeaux.getTransaction().getTime() * nodeaux.getTransaction().getQuantity()
+            nodeaux = nodeaux.getNext()
+        return time
+
+    def getTransactionByCode(self, code):
+        nodeaux = self.__first
+        while nodeaux:
+            if nodeaux.getTransaction().getCode() == code:
+                return nodeaux.getTransaction()
+            nodeaux = nodeaux.getNext()
+        return Transaction()

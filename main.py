@@ -43,7 +43,7 @@ def main():
                     print(Fore.BLUE + '9) SALIR\n')
 
                     textinxml = input(Fore.YELLOW + "Ingrese el numero de la opción que desee ")
-                    if textinxml != '' and str.isdigit(textin):
+                    if textinxml != '' and str.isdigit(textinxml):
                         optionxml = int(textinxml)
                     else:
                         optionxml = 0
@@ -138,7 +138,27 @@ def main():
                         else: 
                             print(Fore.RED + 'El código de empresa ingresado no existe dentro de la lista')
             elif option == 3:
-                option
+                optionmanager = 0
+                while optionmanager != 9:
+                    print(Fore.BLUE + '\n1) Ver estado del punto de atención')
+                    print(Fore.BLUE + '2) Activar escritorio de servicio')
+                    print(Fore.BLUE + '3) Desactivar escritorio de servicio')
+                    print(Fore.BLUE + '4) Atender cliente')
+                    print(Fore.BLUE + '5) Solicitud de atención')
+                    print(Fore.BLUE + '6) Simular actividad del punto de atención')
+                    print(Fore.BLUE + '9) SALIR\n')
+
+                    textinmanager = input(Fore.YELLOW + "Ingrese el numero de la opción que desee ")
+                    if textinmanager != '' and str.isdigit(textinmanager):
+                        optionmanager = int(textinmanager)
+                    else:
+                        optionmanager = 0
+
+                    if optionmanager == 1:
+                        if testpoint.getCode() != None:
+                            testpoint.graphStatusPoint()
+                        else:
+                            print(Fore.RED + 'No se ha seleccionado ningún punto')
     except Exception as e:
             print(Fore.RED + f'{e}')
 main()

@@ -5,9 +5,13 @@ from NodeClient import NodeClient
 class ListClient:
     def __init__(self):
         self.__first = NodeClient()
+        self.__clientscount = 1
 
     def getFirst(self):
         return self.__first
+
+    def getClientsCount(self):
+        return self.__clientscount
 
     def setFirst(self, first = NodeClient()):
         self.__first = first
@@ -16,6 +20,7 @@ class ListClient:
         
         if self.__first.getClient().getDpi() == None:
             self.__first = NodeClient(client=client)
+            self.__clientscount += 1
             return True
 
         nodeaux=self.__first
@@ -28,4 +33,27 @@ class ListClient:
             print(Fore.RED + f'El DPI {client.getDpi()} ya existe en la lista')
             return False
         nodeaux.setNext(NodeClient(client=client))
+        self.__clientscount += 1
         return True
+
+    def getTime(self):
+        if self.__first.getClient().getName() == None:
+            return 0
+        
+        nodeaux = self.__first
+        time = 0
+        while nodeaux:
+            time += nodeaux.getClient().getTransactions().getTime()
+            nodeaux = nodeaux.getNext()
+        return time
+
+    def getClientsNum(self):
+        if self.__first.getClient().getName() == None:
+            return 0
+        
+        nodeaux = self.__first
+        num = 0
+        while nodeaux:
+            num += 1
+            nodeaux = nodeaux.getNext()
+        return num

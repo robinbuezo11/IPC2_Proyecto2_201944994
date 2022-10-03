@@ -1,5 +1,5 @@
 class Transaction:
-    def __init__(self, code=None, name=None, time=None, quantity=None):
+    def __init__(self, code=None, name=None, time=0, quantity=0):
         self.__code = code
         self.__name = name
         self.__time = time
@@ -25,3 +25,6 @@ class Transaction:
 
     def setQuantity(self, quantity):
         self.__quantity = quantity
+
+    def toString(self):
+        return f'{self.__code},     {self.__name},      {self.__time},      Cantidad: {self.__quantity}'

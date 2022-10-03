@@ -90,6 +90,7 @@ class ManagerXml():
                                     for itrtransaction in dataclient:
                                         transactions.insert(Transaction(code=itrtransaction.attrib['idTransaccion'], quantity=int(itrtransaction.attrib['cantidad'])))
                                     client.setTransactions(transactions=transactions)
+                                    client.setTimeWait(clients.getTime())
                             clients.insert(client=client)
                         config.setClients(clients=clients)
                 configs.insert(config=config)

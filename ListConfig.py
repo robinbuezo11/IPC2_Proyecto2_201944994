@@ -70,6 +70,8 @@ class ListConfig:
                                         if transconfig.getTransaction().getCode() == nodetrans.getTransaction().getCode():
                                             validtrans = True
                                             print(Fore.CYAN + f'Transacción {transconfig.getTransaction().getCode()} aceptada.')
+                                            transconfig.getTransaction().setName(nodetrans.getTransaction().getName())
+                                            transconfig.getTransaction().setTime(nodetrans.getTransaction().getTime())
                                         nodetrans = nodetrans.getNext()
                                     if not validtrans:
                                         print(Fore.RED + f'La transacción {transconfig.getTransaction().getCode()} no está disponible.')
