@@ -3,11 +3,12 @@ from Client import Client
 
 
 class ServiceDesk:
-    def __init__(self, code=None, id=None, manager=None, active=False, client=Client()):
+    def __init__(self, code=None, id=None, manager=None, active=False, activenum = None, client=Client()):
         self.__code = code
         self.__id = id
         self.__manager = manager
         self.__active = active
+        self.__activenum = activenum
         self.__client = client
         self.__clientscount = 0
         self.__attentionclientstime = 0
@@ -25,6 +26,9 @@ class ServiceDesk:
 
     def getActive(self):
         return self.__active
+        
+    def getActiveNum(self):
+        return self.__activenum
 
     def getClient(self):
         return self.__client
@@ -37,6 +41,9 @@ class ServiceDesk:
 
     def setActive(self, active):
         self.__active = active
+        
+    def setActiveNum(self, activenum):
+        self.__activenum = activenum
 
     def setClient(self, client=Client()):
         self.__client = client

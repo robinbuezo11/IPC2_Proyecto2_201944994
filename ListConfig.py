@@ -52,7 +52,9 @@ class ListConfig:
                                 nodedesk = nodepoint.getPoint().getDesks().getFirst()
                                 while nodedesk and not applieddesk:
                                     if configdesk.getDesk().getCode() == nodedesk.getDesk().getCode():
+                                        nodepoint.getPoint().getDesks().setActive(nodepoint.getPoint().getDesks().getActive()+1)
                                         nodedesk.getDesk().setActive(True)
+                                        nodedesk.getDesk().setActiveNum(nodepoint.getPoint().getDesks().getActive())
                                         applieddesk = True
                                     nodedesk = nodedesk.getNext()
                                 if not applieddesk:

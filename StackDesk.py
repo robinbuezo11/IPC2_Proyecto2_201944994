@@ -5,9 +5,16 @@ from ServiceDesk import ServiceDesk
 class StackDesk:
     def __init__(self):
         self.__first = NodeDesk()
+        self.__active = 0
 
     def getFirst(self):
         return self.__first
+
+    def getActive(self):
+        return self.__active
+
+    def setActive(self, active):
+        self.__active = active
 
     def setFirst(self, first = NodeDesk()):
         self.__first = first
@@ -73,7 +80,22 @@ class StackDesk:
         nodeaux = self.__first
         string = ''
         while nodeaux:
-            string += nodeaux.getDesk().toString()
-            string += '\n'
+            if nodeaux.getDesk().getActive() == True:
+                string += nodeaux.getDesk().toString()
+                string += '\n'
             nodeaux = nodeaux.getNext()
         return string
+
+    def activeDesk(self):
+        if self.__first.getDesk().getCode() == None:
+            return Fore.RED + 'No existe ninguna empresa en la lista'
+
+        nodeaux = self.__first
+        while nodeaux:
+            if nodeaux.getDesk().getActive() == False:
+                self.__active += 1
+                nodeaux.getDesk().setActive(True)
+                nodeaux.getDesk().setActiveNum(self.__active)
+                return Fore.GREEN + f'Escritorio {nodeaux.getDesk().getCode()} activado'
+            nodeaux = nodeaux.getNext()
+        return Fore.RED + 'Todos los escritorios ya se encuentran activos'

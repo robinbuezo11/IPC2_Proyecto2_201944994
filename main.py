@@ -166,6 +166,8 @@ def main():
                             print(testpoint.getDesks().toString())
                         else:
                             print(Fore.RED + 'No se ha seleccionado ningún punto')
+                    elif optionmanager == 2:
+                        print(testpoint.getDesks().activeDesk())
     except Exception as e:
             print(Fore.RED + f'{e}')
 main()
