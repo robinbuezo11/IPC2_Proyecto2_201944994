@@ -1,5 +1,4 @@
 import os
-
 from colorama import Fore
 from StackDesk import StackDesk
 from ListClient import ListClient
@@ -90,3 +89,18 @@ class AttentionPoint:
         file.close()
         os.system(f'dot -Tpng estado.dot -o estado.png')
         print(Fore.GREEN + 'Estado creado correctamente')
+
+    def callClient(self):
+        if self.__clients.getFirst().getClient().getDpi() == None:
+            return Fore.RED + 'No hay ningun cliente en cola'
+
+        if self.__desks.getFirst().getDesk().getCode() == None:
+            return Fore.RED + 'No hay ningún escritorio'
+
+        nodedesk = self.__desks.getFirst()
+        while nodedesk:
+            if nodedesk.getDesk().getActive() == True and nodedesk.getDesk().getClient().getDpi() == None:
+                nodeclient = self.__clients.pop()
+                nodedesk.getDesk().setClient(client=nodeclient)
+                return Fore.GREEN + f'Cliente {nodeclient.getClient().getName()} al escritorio {nodedesk.getDesk().getId()}'
+        return Fore.RED + 'No hay ningun escritorio disponible'
