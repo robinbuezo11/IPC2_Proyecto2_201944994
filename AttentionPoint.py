@@ -45,7 +45,7 @@ class AttentionPoint:
     def graphStatusPoint(self):
         text = 'digraph {fontname="Helventica,Arial,sans-serif" edge[dir=back] subgraph cluster0{fontsize=30 node[shape=plain style=filled pencolor="#00000" color="aqua" fontname="Helvetica,Arial,sans-serif"]'
         relation = ''
-        contador = self.__clients.getClientsCount()-self.__clients.getClientsNum()
+        contador = self.__clients.getClientsCount()-self.__clients.getClientsNum()+1
 
         if self.__clients.getFirst().getClient().getDpi() == None:
             text += 'Client[label=<<table cellspacing="0" cellpadding="20"><tr><td><b>Cola vacia</b></td></tr></table>>] label=<<b>Clientes</b>>}'

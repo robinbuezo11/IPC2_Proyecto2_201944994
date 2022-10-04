@@ -53,3 +53,27 @@ class StackDesk:
                 num += 1
             nodeaux = nodeaux.getNext()
         return num
+
+    def getDesactiveDesks(self):
+        if self.__first.getDesk().getCode() == None:
+            return 0
+        
+        nodeaux = self.__first
+        num = 0
+        while nodeaux:
+            if nodeaux.getDesk().getActive() == False:
+                num += 1
+            nodeaux = nodeaux.getNext()
+        return num
+
+    def toString(self):
+        if self.__first.getDesk().getCode() == None:
+            return Fore.RED + 'No existe ninguna empresa en la lista'
+        
+        nodeaux = self.__first
+        string = ''
+        while nodeaux:
+            string += nodeaux.getDesk().toString()
+            string += '\n'
+            nodeaux = nodeaux.getNext()
+        return string

@@ -158,9 +158,12 @@ def main():
                         if testpoint.getCode() != None:
                             testpoint.graphStatusPoint()
                             print(Fore.WHITE + 'Punto de atencion:')
-                            print(Fore.MAGENTA + f'Escritorios activos: {testpoint.getDesks().getActiveDesks()}\nClientes en espera: {testpoint.getClients().getClientsNum()}')
-                            print(f'Tiempo promedio de espera: {testpoint.getClients().getAvgTimeInLine()}\nTiempo maximo de espera: {testpoint.getClients().getMaxTimeInLine()}')
-                            print(f'Tiempo minimo de espera: {testpoint.getClients().getMinTimeInLine()}\n')
+                            print(Fore.MAGENTA + f'Escritorios activos: {testpoint.getDesks().getActiveDesks()}\nEscritorios inactivos: {testpoint.getDesks().getDesactiveDesks()}')
+                            print(f'Clientes en espera: {testpoint.getClients().getClientsNum()}\nTiempo promedio de espera: {testpoint.getClients().getAvgTimeWait()}')
+                            print(f'Tiempo maximo de espera: {testpoint.getClients().getMaxTimeWait()}\nTiempo minimo de espera: {testpoint.getClients().getMinTimeWait()}')
+                            print(f'Tiempo promedio de atencion: {testpoint.getClients().getAvgAttentionTime()}\nTiempo maximo de atencion: {testpoint.getClients().getMaxAttentionTime()}')
+                            print(f'Tiempo minimo de atencion: {testpoint.getClients().getMinAttentionTime()}')
+                            print(testpoint.getDesks().toString())
                         else:
                             print(Fore.RED + 'No se ha seleccionado ningún punto')
     except Exception as e:
