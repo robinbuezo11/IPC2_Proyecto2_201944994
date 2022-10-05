@@ -88,7 +88,8 @@ class StackDesk:
 
     def activeDesk(self):
         if self.__first.getDesk().getCode() == None:
-            return Fore.RED + 'No existe ninguna empresa en la lista'
+            print(Fore.RED + 'No existe ningun escritorio en la lista')
+            return False
 
         nodeaux = self.__first
         while nodeaux:
@@ -96,6 +97,23 @@ class StackDesk:
                 self.__active += 1
                 nodeaux.getDesk().setActive(True)
                 nodeaux.getDesk().setActiveNum(self.__active)
-                return Fore.GREEN + f'Escritorio {nodeaux.getDesk().getCode()} activado'
+                print(Fore.GREEN + f'Escritorio {nodeaux.getDesk().getCode()} activado')
+                return True
             nodeaux = nodeaux.getNext()
-        return Fore.RED + 'Todos los escritorios ya se encuentran activos'
+        print(Fore.RED + 'Todos los escritorios ya se encuentran activos')
+        return False
+
+    def desactiveDesk(self):
+        if self.__active == 0:
+            print(Fore.RED + 'No hay ningun escritorio activo')
+            return False
+
+        nodeaux = self.__first
+        while nodeaux:
+            if nodeaux.getDesk().getActiveNum() == self.__active:
+                nodeaux.getDesk().setActive(False)
+                print(Fore.GREEN + f'Escritorio {nodeaux.getDesk().getCode()} desactivado')
+                nodeaux.getDesk().setActiveNum(None)
+                self.__active -= 1
+                return True
+            nodeaux = nodeaux.getNext()

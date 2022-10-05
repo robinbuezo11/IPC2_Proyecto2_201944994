@@ -157,7 +157,7 @@ def main():
                     if optionmanager == 1:
                         if testpoint.getCode() != None:
                             testpoint.graphStatusPoint()
-                            print(Fore.WHITE + 'Punto de atencion:')
+                            print(Fore.WHITE + f'Punto de atencion: {testpoint.getCode()}')
                             print(Fore.MAGENTA + f'Escritorios activos: {testpoint.getDesks().getActiveDesks()}\nEscritorios inactivos: {testpoint.getDesks().getDesactiveDesks()}')
                             print(f'Clientes en espera: {testpoint.getClients().getClientsNum()}\nTiempo promedio de espera: {testpoint.getClients().getAvgTimeWait()}')
                             print(f'Tiempo maximo de espera: {testpoint.getClients().getMaxTimeWait()}\nTiempo minimo de espera: {testpoint.getClients().getMinTimeWait()}')
@@ -167,10 +167,10 @@ def main():
                         else:
                             print(Fore.RED + 'No se ha seleccionado ningún punto')
                     elif optionmanager == 2:
-                        print(testpoint.getDesks().activeDesk())
-                        print(testpoint.callClient())
-                    elif optionmanager == 2:
-                        pass
+                        if testpoint.getDesks().activeDesk():
+                            testpoint.callClient()
+                    elif optionmanager == 3:
+                        testpoint.getDesks().desactiveDesk()
     except Exception as e:
             print(Fore.RED + f'{e}')
 main()

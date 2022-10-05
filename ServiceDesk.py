@@ -55,7 +55,7 @@ class ServiceDesk:
             self.__attentionmintime = client.getTransactions().getTime()
 
     def toString(self):
-        text = Fore.WHITE + f'Escritorio de servicio:\n'
+        text = Fore.WHITE + f'Escritorio de servicio: {self.__code}\n'
         if self.__clientscount != 0:
             prom = self.__attentionclientstime/self.__clientscount
         else:
