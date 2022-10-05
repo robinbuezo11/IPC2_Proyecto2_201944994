@@ -10,8 +10,6 @@ class ListClient:
         self.__mintime = 0
         self.__maxtime = 0
         self.__attentionclientstime = 0
-        self.__attentionmintime = 0
-        self.__attentionmaxtime = 0
 
     def getFirst(self):
         return self.__first
@@ -33,10 +31,6 @@ class ListClient:
             if (self.__mintime > client.getTimeWait() or self.__mintime == 0) and client.getTimeWait() != 0:
                 self.__mintime = client.getTimeWait()
             self.__attentionclientstime += client.getTransactions().getTime()
-            if self.__attentionmaxtime < client.getTransactions().getTime():
-                self.__attentionmaxtime = client.getTransactions().getTime()
-            if self.__attentionmintime > client.getTransactions().getTime() or self.__attentionmintime == 0:
-                self.__attentionmintime = client.getTransactions().getTime()
             return True
 
         nodeaux=self.__first
@@ -56,10 +50,6 @@ class ListClient:
         if (self.__mintime > client.getTimeWait() or self.__mintime == 0) and client.getTimeWait() != 0:
             self.__mintime = client.getTimeWait()
         self.__attentionclientstime += client.getTransactions().getTime()
-        if self.__attentionmaxtime < client.getTransactions().getTime():
-            self.__attentionmaxtime = client.getTransactions().getTime()
-        if self.__attentionmintime > client.getTransactions().getTime() or self.__attentionmintime == 0:
-            self.__attentionmintime = client.getTransactions().getTime()
         return True
 
     def delete(self):
@@ -117,15 +107,3 @@ class ListClient:
             return self.__maxtime+timedesk
         else:
             return self.__maxtime
-
-    def getAvgAttentionTime(self):
-        if self.__clientscount != 0:
-            return self.__clientstime/self.__clientscount
-        else:
-            return 0
-
-    def getMinAttentionTime(self):
-        return self.__attentionmintime
-
-    def getMaxAttentionTime(self):
-        return self.__attentionmaxtime

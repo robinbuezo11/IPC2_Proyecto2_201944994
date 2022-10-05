@@ -33,6 +33,18 @@ class ServiceDesk:
     def getClient(self):
         return self.__client
 
+    def getClientsCount(self):
+        return self.__clientscount
+
+    def getAttentionsClientsTime(self):
+        return self.__attentionclientstime
+
+    def getAttentionMinTime(self):
+        return self.__attentionmintime
+
+    def getAttentionMaxTime(self):
+        return self.__attentionmaxtime
+
     def setId(self, id):
         self.__id = id
 

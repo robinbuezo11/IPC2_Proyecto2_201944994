@@ -162,8 +162,8 @@ def main():
                             print(Fore.MAGENTA + f'Escritorios activos: {testpoint.getDesks().getActiveDesks()}\nEscritorios inactivos: {testpoint.getDesks().getDesactiveDesks()}')
                             print(f'Clientes en espera: {testpoint.getClients().getClientsNum()}\nTiempo promedio de espera: {testpoint.getClients().getAvgTimeWait(testpoint.getDesks().getMinClientTime())}')
                             print(f'Tiempo maximo de espera: {testpoint.getClients().getMaxTimeWait(testpoint.getDesks().getMinClientTime())}\nTiempo minimo de espera: {testpoint.getClients().getMinTimeWait(testpoint.getDesks().getMinClientTime())}')
-                            print(f'Tiempo promedio de atencion: {testpoint.getClients().getAvgAttentionTime()}\nTiempo maximo de atencion: {testpoint.getClients().getMaxAttentionTime()}')
-                            print(f'Tiempo minimo de atencion: {testpoint.getClients().getMinAttentionTime()}')
+                            print(f'Tiempo promedio de atencion: {testpoint.getDesks().getAvgAttentionTime()}\nTiempo maximo de atencion: {testpoint.getDesks().getMaxAttentionTime()}')
+                            print(f'Tiempo minimo de atencion: {testpoint.getDesks().getMinAttentionTime()}')
                             print(testpoint.getDesks().toString())
                         else:
                             print(Fore.RED + 'No se ha seleccionado ningún punto')

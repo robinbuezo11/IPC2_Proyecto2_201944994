@@ -54,14 +54,14 @@ class AttentionPoint:
             while nodeaux:
                 if nodeaux.getNext():
                     transactions=nodeaux.getClient().getTransactions().toString().replace("\n","<br/>")
-                    text += f'Client{contador}[label=<<table cellspacing="0" cellpadding="25"><tr><td><b>Numero {contador}</b></td></tr>'
+                    text += f'Client{contador}[label=<<table cellspacing="0" cellpadding="22"><tr><td><b>Numero {contador}</b></td></tr>'
                     text += f'<tr><td>{nodeaux.getClient().getName()}<br/>DPI: {nodeaux.getClient().getDpi()}<br/>{transactions}Tiempo de Atencion: {nodeaux.getClient().getTransactions().getTime()}<br/>Tiempo en Cola: {nodeaux.getClient().getTimeWait(self.getDesks().getMinClientTime())}</td></tr></table>>]'
                     relation += f'Client{contador}->'
                     nodeaux=nodeaux.getNext()
                     contador+=1
                 else:
                     transactions=nodeaux.getClient().getTransactions().toString().replace("\n","<br/>")
-                    text += f'Client{contador}[label=<<table cellspacing="0" cellpadding="25"><tr><td><b>Numero {contador}</b></td></tr>'
+                    text += f'Client{contador}[label=<<table cellspacing="0" cellpadding="22"><tr><td><b>Numero {contador}</b></td></tr>'
                     text += f'<tr><td>{nodeaux.getClient().getName()}<br/>DPI: {nodeaux.getClient().getDpi()}<br/>{transactions}Tiempo de Atencion: {nodeaux.getClient().getTransactions().getTime()}<br/>Tiempo en Cola: {nodeaux.getClient().getTimeWait(self.getDesks().getMinClientTime())}</td></tr></table>>]'
                     relation += f'Client{contador}'
                     nodeaux=nodeaux.getNext()

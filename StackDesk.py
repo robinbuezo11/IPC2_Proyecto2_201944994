@@ -147,3 +147,43 @@ class StackDesk:
                 num += 1
             nodeaux = nodeaux.getNext()
         return num
+
+    def getMinAttentionTime(self):
+        if self.__first.getDesk().getCode() == None:
+            return 0
+        
+        nodeaux = self.__first
+        min = 0
+        while nodeaux:
+            if min > nodeaux.getDesk().getAttentionMinTime() or min == 0:
+                min = nodeaux.getDesk().getAttentionMinTime()
+            nodeaux = nodeaux.getNext()
+        return min
+
+    def getMaxAttentionTime(self):
+        if self.__first.getDesk().getCode() == None:
+            return 0
+        
+        nodeaux = self.__first
+        max = 0
+        while nodeaux:
+            if max > nodeaux.getDesk().getAttentionMinTime() or max == 0:
+                max = nodeaux.getDesk().getAttentionMinTime()
+            nodeaux = nodeaux.getNext()
+        return max
+
+    def getAvgAttentionTime(self):
+        if self.__first.getDesk().getCode() == None:
+            return 0
+        
+        nodeaux = self.__first
+        time = 0
+        clients = 0
+        while nodeaux:
+            time += nodeaux.getDesk().getAttentionsClientsTime()
+            clients += nodeaux.getDesk().getClientsCount()
+            nodeaux = nodeaux.getNext()
+        if clients != 0:
+            return time/clients
+        else:
+            return 0

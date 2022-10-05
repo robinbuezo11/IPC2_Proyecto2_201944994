@@ -27,4 +27,4 @@ class Transaction:
         self.__quantity = quantity
 
     def toString(self):
-        return f'{self.__code},     {self.__name},      {self.__time},      Cantidad: {self.__quantity}'
+        return f'{self.__code}, {self.__name},  {self.__time},  Cantidad: {self.__quantity}'
