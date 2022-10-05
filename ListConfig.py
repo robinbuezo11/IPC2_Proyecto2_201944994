@@ -1,6 +1,7 @@
 from colorama import Fore
 from Config import Config
 from ListEnterprise import ListEnterprise
+from ListTransaction import ListTransaction
 from NodeConfig import NodeConfig
 
 class ListConfig:
@@ -65,6 +66,7 @@ class ListConfig:
                                 validclient = True
                                 print(Fore.WHITE + f'Revisando al cliente {clientconfig.getClient().getName()}, DPI {clientconfig.getClient().getDpi()}')
                                 transconfig = clientconfig.getClient().getTransactions().getFirst()
+                                transactionconfig = ListTransaction()
                                 while transconfig:
                                     validtrans = False
                                     nodetrans = nodeenterprise.getEnterprise().getTransactions().getFirst()
@@ -74,11 +76,13 @@ class ListConfig:
                                             print(Fore.CYAN + f'Transacción {transconfig.getTransaction().getCode()} aceptada.')
                                             transconfig.getTransaction().setName(nodetrans.getTransaction().getName())
                                             transconfig.getTransaction().setTime(nodetrans.getTransaction().getTime())
+                                            transactionconfig.insert(transaction=transconfig.getTransaction())
                                         nodetrans = nodetrans.getNext()
                                     if not validtrans:
                                         print(Fore.RED + f'La transacción {transconfig.getTransaction().getCode()} no está disponible.')
                                         validclient = False
                                     transconfig = transconfig.getNext()
+                                clientconfig.getClient().setTransactions(transactions=transactionconfig)
                                 if validclient:
                                     nodepoint.getPoint().getClients().insert(clientconfig.getClient())
                                     print(Fore.CYAN + 'Cliente agregado correctamente')

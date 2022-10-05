@@ -5,6 +5,7 @@ from Transaction import Transaction
 class ListTransaction:
     def __init__(self):
         self.__first = NodeTransaction()
+        self.__time = 0
 
     def getFirst(self):
         return self.__first
@@ -12,10 +13,14 @@ class ListTransaction:
     def setFirst(self, first = NodeTransaction()):
         self.__first = first
 
+    def setTime(self, time):
+        self.__time = time
+
     def insert(self, transaction = Transaction()):
         
         if self.__first.getTransaction().getCode() == None:
             self.__first = NodeTransaction(transaction=transaction)
+            self.__time += transaction.getTime() * transaction.getQuantity()
             return True
 
         nodeaux=self.__first
@@ -28,6 +33,7 @@ class ListTransaction:
             print(Fore.RED + f'La transacción {transaction.getCode()} ya existe en la lista')
             return False
         nodeaux.setNext(NodeTransaction(transaction=transaction))
+        self.__time += transaction.getTime() * transaction.getQuantity()
         return True
 
     def toString(self):
@@ -43,15 +49,7 @@ class ListTransaction:
         return string
 
     def getTime(self):
-        if self.__first.getTransaction().getCode() == None:
-            return 0
-        
-        nodeaux = self.__first
-        time = 0
-        while nodeaux:
-            time += nodeaux.getTransaction().getTime() * nodeaux.getTransaction().getQuantity()
-            nodeaux = nodeaux.getNext()
-        return time
+        return self.__time
 
     def getTransactionByCode(self, code):
         nodeaux = self.__first

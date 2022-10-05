@@ -117,3 +117,21 @@ class StackDesk:
                 self.__active -= 1
                 return True
             nodeaux = nodeaux.getNext()
+
+    def getMinClientTime(self):
+        if self.__first.getDesk().getCode() == None:
+            return False
+
+        nodeaux = self.__first
+        min = None
+        while nodeaux:
+            if nodeaux.getDesk().getClient().getDpi() is not None and min is None:
+                min = nodeaux.getDesk().getClient().getTransactions().getTime()
+            elif nodeaux.getDesk().getClient().getDpi() is not None and min is not None:
+                if min > nodeaux.getDesk().getClient().getTransactions().getTime():
+                    min = nodeaux.getDesk().getClient().getTransactions().getTime()
+            nodeaux = nodeaux.getNext()
+        if min is None:
+            return False
+        else:
+            return min

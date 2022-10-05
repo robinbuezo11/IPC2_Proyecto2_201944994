@@ -79,8 +79,9 @@ class AttentionPoint:
                 if nodeaux.getDesk().getActive() == True:  
                     text += f'color="springgreen" label=<<table cellspacing="0" cellpadding="20"><tr><td><b>Escritorio {nodeaux.getDesk().getCode()}</b></td></tr>'
                 else:
-                    text += f'label=<<table cellspacing="0" cellpadding="20"><tr><td><b>Escritorio {nodeaux.getDesk().getCode()}</b></td></tr>'
-                text += f'<tr><td>ID: {nodeaux.getDesk().getId()}<br/>Encargado: {nodeaux.getDesk().getManager()}<br/>Cliente: {nodeaux.getDesk().getClient().getName()}<br/>DPI: {nodeaux.getDesk().getClient().getDpi()}</td></tr></table>>]'
+                    text += f'label=<<table cellspacing="0" cellpadding="20"><tr><td><b>Escritorio {nodeaux.getDesk().getCode()}</b><br/>Fuera de Servicio</td></tr>'
+                text += f'<tr><td>ID: {nodeaux.getDesk().getId()}<br/>Encargado: {nodeaux.getDesk().getManager()}<br/>Cliente: {nodeaux.getDesk().getClient().getName()}<br/>DPI: {nodeaux.getDesk().getClient().getDpi()}\n'
+                text += f'<br/>Tiempo de atencion: {nodeaux.getDesk().getClient().getTransactions().getTime()}</td></tr></table>>]'
                 nodeaux=nodeaux.getNext()
             text+=' label=<<b>Escritorios</b>>}'
         text+='}'
@@ -104,3 +105,20 @@ class AttentionPoint:
                 nodedesk.getDesk().setClient(client=nodeclient.getClient())
                 return Fore.GREEN + f'Cliente {nodeclient.getClient().getName()} al escritorio {nodedesk.getDesk().getId()}'
         return Fore.RED + 'No hay ningun escritorio disponible'
+
+    def attendClient(self):
+        min = self.__desks.getMinClientTime()
+
+        if min != False:
+            nodedesk = self.__desks.getFirst()
+            while nodedesk:
+                if nodedesk.getDesk().getClient().getTransactions().getTime() == min:
+                    clientout = nodedesk.getDesk().clientOut()
+                    print(Fore.GREEN + f'El cliente {clientout.getName()} fue atendido')
+                    self.callClient()
+                else:
+                    if nodedesk.getDesk().getClient().getDpi() is not None:
+                        nodedesk.getDesk().getClient().getTransactions().setTime(nodedesk.getDesk().getClient().getTransactions().getTime()-min)  
+                nodedesk = nodedesk.getNext()
+        else: 
+            print(Fore.RED + 'No existe nigun cliente en los escritorios')

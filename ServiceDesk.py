@@ -54,6 +54,11 @@ class ServiceDesk:
         if self.__attentionmintime > client.getTransactions().getTime() or self.__attentionmintime == 0:
             self.__attentionmintime = client.getTransactions().getTime()
 
+    def clientOut(self):
+        clientout = self.__client
+        self.__client = Client()
+        return clientout
+
     def toString(self):
         text = Fore.WHITE + f'Escritorio de servicio: {self.__code}\n'
         if self.__clientscount != 0:

@@ -171,6 +171,8 @@ def main():
                             testpoint.callClient()
                     elif optionmanager == 3:
                         testpoint.getDesks().desactiveDesk()
+                    elif optionmanager == 4:
+                        testpoint.attendClient()
     except Exception as e:
             print(Fore.RED + f'{e}')
 main()
