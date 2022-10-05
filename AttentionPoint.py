@@ -101,6 +101,6 @@ class AttentionPoint:
         while nodedesk:
             if nodedesk.getDesk().getActive() == True and nodedesk.getDesk().getClient().getDpi() == None:
                 nodeclient = self.__clients.pop()
-                nodedesk.getDesk().setClient(client=nodeclient)
+                nodedesk.getDesk().setClient(client=nodeclient.getClient())
                 return Fore.GREEN + f'Cliente {nodeclient.getClient().getName()} al escritorio {nodedesk.getDesk().getId()}'
         return Fore.RED + 'No hay ningun escritorio disponible'

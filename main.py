@@ -168,6 +168,9 @@ def main():
                             print(Fore.RED + 'No se ha seleccionado ningún punto')
                     elif optionmanager == 2:
                         print(testpoint.getDesks().activeDesk())
+                        print(testpoint.callClient())
+                    elif optionmanager == 2:
+                        pass
     except Exception as e:
             print(Fore.RED + f'{e}')
 main()

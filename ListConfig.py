@@ -82,6 +82,7 @@ class ListConfig:
                                 if validclient:
                                     nodepoint.getPoint().getClients().insert(clientconfig.getClient())
                                     print(Fore.CYAN + 'Cliente agregado correctamente')
+                                    nodepoint.getPoint().callClient()
                                 clientconfig = clientconfig.getNext()
                         nodepoint = nodepoint.getNext()
                     if not appliedpoint:
