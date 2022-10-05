@@ -203,15 +203,12 @@ def main():
                         else:
                             print(Fore.RED + 'La cantidad de parametros ingresados no es la correcta')
                     elif optionmanager == 6:
-                        clientaux = testpoint.getClients().getFirst()
-                        while clientaux:
+                        clients = testpoint.getClients().getClientsNum()
+                        for iter in range(clients):
                             testpoint.attendClient()
-                            clientaux = clientaux.getNext()
-                        deskaux = testpoint.getDesks().getFirst()
-                        while deskaux:
-                            if deskaux.getDesk().getActive == True and deskaux.getDesk().getClient().getDpi() is not None:
-                                testpoint.attendClient()
-                            deskaux = deskaux.getNext()
+                        desks = testpoint.getDesks().getDesksWithClient()
+                        for iter in range(desks):
+                            testpoint.attendClient()
                         if testpoint.getCode() != None:
                             testpoint.graphStatusPoint()
                             print(Fore.WHITE + f'Punto de atencion: {testpoint.getCode()}')

@@ -62,25 +62,21 @@ class ListClient:
             self.__attentionmintime = client.getTransactions().getTime()
         return True
 
-    def pop(self):
+    def delete(self):
         
         if self.__first.getClient().getDpi() == None:
             print(Fore.RED + 'No existe ningun cliente en la cola')
             return False
 
-        nodeaux=NodeClient()
-        nodepop=self.__first
-
-        if nodepop.getNext() == None:
-            self.__first = nodeaux
+        deletenode = self.__first
+        if deletenode.getNext() == None:
+            self.__first = NodeClient()
             self.__clientscount -= 1
-            return nodepop
-
-        while nodepop.getNext():
-            nodeaux = nodepop
-            nodepop = nodepop.getNext()
-        nodeaux.setNext(None)
-        return nodepop
+            return deletenode
+        else:
+            self.__first = self.__first.getNext()
+            deletenode.setNext(None)
+            return deletenode
 
     def getTime(self):
         if self.__first.getClient().getName() == None:

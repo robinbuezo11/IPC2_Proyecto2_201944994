@@ -135,3 +135,15 @@ class StackDesk:
             return False
         else:
             return min
+
+    def getDesksWithClient(self):
+        if self.__first.getDesk().getCode() == None:
+            return 0
+        
+        nodeaux = self.__first
+        num = 0
+        while nodeaux:
+            if nodeaux.getDesk().getClient().getDpi() is not None:
+                num += 1
+            nodeaux = nodeaux.getNext()
+        return num

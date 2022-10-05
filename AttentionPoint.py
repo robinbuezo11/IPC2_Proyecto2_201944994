@@ -80,7 +80,7 @@ class AttentionPoint:
                     text += f'color="springgreen" label=<<table cellspacing="0" cellpadding="20"><tr><td><b>Escritorio {nodeaux.getDesk().getCode()}</b></td></tr>'
                 else:
                     text += f'label=<<table cellspacing="0" cellpadding="20"><tr><td><b>Escritorio {nodeaux.getDesk().getCode()}</b><br/>Fuera de Servicio</td></tr>'
-                text += f'<tr><td>ID: {nodeaux.getDesk().getId()}<br/>Encargado: {nodeaux.getDesk().getManager()}<br/>Cliente: {nodeaux.getDesk().getClient().getName()}<br/>DPI: {nodeaux.getDesk().getClient().getDpi()}\n'
+                text += f'<tr><td>ID: {nodeaux.getDesk().getId()}<br/>Encargado: {nodeaux.getDesk().getManager()}<br/>Cliente: {nodeaux.getDesk().getClient().getName()}<br/>DPI: {nodeaux.getDesk().getClient().getDpi()}'
                 text += f'<br/>Tiempo de atencion: {nodeaux.getDesk().getClient().getTransactions().getTime()}</td></tr></table>>]'
                 nodeaux=nodeaux.getNext()
             text+=' label=<<b>Escritorios</b>>}'
@@ -101,7 +101,7 @@ class AttentionPoint:
         nodedesk = self.__desks.getFirst()
         while nodedesk:
             if nodedesk.getDesk().getActive() == True and nodedesk.getDesk().getClient().getDpi() == None:
-                nodeclient = self.__clients.pop()
+                nodeclient = self.__clients.delete()
                 nodedesk.getDesk().setClient(client=nodeclient.getClient())
                 return Fore.GREEN + f'Cliente {nodeclient.getClient().getName()} al escritorio {nodedesk.getDesk().getId()}'
             nodedesk = nodedesk.getNext()
