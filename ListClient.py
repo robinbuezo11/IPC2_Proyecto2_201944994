@@ -104,17 +104,23 @@ class ListClient:
             nodeaux = nodeaux.getNext()
         return num
 
-    def getAvgTimeWait(self):
+    def getAvgTimeWait(self, timedesk=0):
         if self.__clientscount != 0:
-            return self.__clientstime/self.__clientscount
+            return (self.__clientstime+timedesk)/self.__clientscount
         else:
             return 0
     
-    def getMinTimeWait(self):
-        return self.__mintime
+    def getMinTimeWait(self, timedesk=0):
+        if self.__first.getClient().getDpi() is not None:
+            return self.__mintime+timedesk
+        else:
+            return self.__mintime
 
-    def getMaxTimeWait(self):
-        return self.__maxtime
+    def getMaxTimeWait(self, timedesk=0):
+        if self.__first.getClient().getDpi() is not None:
+            return self.__maxtime+timedesk
+        else:
+            return self.__maxtime
 
     def getAvgAttentionTime(self):
         if self.__clientscount != 0:

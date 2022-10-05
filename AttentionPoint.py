@@ -54,15 +54,15 @@ class AttentionPoint:
             while nodeaux:
                 if nodeaux.getNext():
                     transactions=nodeaux.getClient().getTransactions().toString().replace("\n","<br/>")
-                    text += f'Client{contador}[label=<<table cellspacing="0" cellpadding="25"><tr><td><b>Número {contador}</b></td></tr>'
-                    text += f'<tr><td>{nodeaux.getClient().getName()}<br/>DPI: {nodeaux.getClient().getDpi()}<br/>{transactions}Tiempo de Atencion: {nodeaux.getClient().getTransactions().getTime()}<br/>Tiempo en Cola: {nodeaux.getClient().getTimeWait()}</td></tr></table>>]'
+                    text += f'Client{contador}[label=<<table cellspacing="0" cellpadding="25"><tr><td><b>Numero {contador}</b></td></tr>'
+                    text += f'<tr><td>{nodeaux.getClient().getName()}<br/>DPI: {nodeaux.getClient().getDpi()}<br/>{transactions}Tiempo de Atencion: {nodeaux.getClient().getTransactions().getTime()}<br/>Tiempo en Cola: {nodeaux.getClient().getTimeWait(self.getDesks().getMinClientTime())}</td></tr></table>>]'
                     relation += f'Client{contador}->'
                     nodeaux=nodeaux.getNext()
                     contador+=1
                 else:
                     transactions=nodeaux.getClient().getTransactions().toString().replace("\n","<br/>")
                     text += f'Client{contador}[label=<<table cellspacing="0" cellpadding="25"><tr><td><b>Numero {contador}</b></td></tr>'
-                    text += f'<tr><td>{nodeaux.getClient().getName()}<br/>DPI: {nodeaux.getClient().getDpi()}<br/>{transactions}Tiempo de Atencion: {nodeaux.getClient().getTransactions().getTime()}<br/>Tiempo en Cola: {nodeaux.getClient().getTimeWait()}</td></tr></table>>]'
+                    text += f'<tr><td>{nodeaux.getClient().getName()}<br/>DPI: {nodeaux.getClient().getDpi()}<br/>{transactions}Tiempo de Atencion: {nodeaux.getClient().getTransactions().getTime()}<br/>Tiempo en Cola: {nodeaux.getClient().getTimeWait(self.getDesks().getMinClientTime())}</td></tr></table>>]'
                     relation += f'Client{contador}'
                     nodeaux=nodeaux.getNext()
                     contador+=1
@@ -104,6 +104,7 @@ class AttentionPoint:
                 nodeclient = self.__clients.pop()
                 nodedesk.getDesk().setClient(client=nodeclient.getClient())
                 return Fore.GREEN + f'Cliente {nodeclient.getClient().getName()} al escritorio {nodedesk.getDesk().getId()}'
+            nodedesk = nodedesk.getNext()
         return Fore.RED + 'No hay ningun escritorio disponible'
 
     def attendClient(self):
@@ -115,7 +116,7 @@ class AttentionPoint:
                 if nodedesk.getDesk().getClient().getTransactions().getTime() == min:
                     clientout = nodedesk.getDesk().clientOut()
                     print(Fore.GREEN + f'El cliente {clientout.getName()} fue atendido')
-                    self.callClient()
+                    print(self.callClient())
                 else:
                     if nodedesk.getDesk().getClient().getDpi() is not None:
                         nodedesk.getDesk().getClient().getTransactions().setTime(nodedesk.getDesk().getClient().getTransactions().getTime()-min)  

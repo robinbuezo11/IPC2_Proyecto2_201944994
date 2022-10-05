@@ -16,8 +16,8 @@ class Client:
     def getTransactions(self):
         return self.__transactions
 
-    def getTimeWait(self):
-        return self.__timewait
+    def getTimeWait(self, timedesk=0):
+        return self.__timewait+timedesk
 
     def setName(self, name):
         self.__name = name

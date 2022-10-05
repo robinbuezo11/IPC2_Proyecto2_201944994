@@ -1,5 +1,6 @@
 from colorama import Fore
 from AttentionPoint import AttentionPoint
+from Client import Client
 from Enterprise import Enterprise
 from ListConfig import ListConfig
 from ListEnterprise import ListEnterprise
@@ -159,8 +160,8 @@ def main():
                             testpoint.graphStatusPoint()
                             print(Fore.WHITE + f'Punto de atencion: {testpoint.getCode()}')
                             print(Fore.MAGENTA + f'Escritorios activos: {testpoint.getDesks().getActiveDesks()}\nEscritorios inactivos: {testpoint.getDesks().getDesactiveDesks()}')
-                            print(f'Clientes en espera: {testpoint.getClients().getClientsNum()}\nTiempo promedio de espera: {testpoint.getClients().getAvgTimeWait()}')
-                            print(f'Tiempo maximo de espera: {testpoint.getClients().getMaxTimeWait()}\nTiempo minimo de espera: {testpoint.getClients().getMinTimeWait()}')
+                            print(f'Clientes en espera: {testpoint.getClients().getClientsNum()}\nTiempo promedio de espera: {testpoint.getClients().getAvgTimeWait(testpoint.getDesks().getMinClientTime())}')
+                            print(f'Tiempo maximo de espera: {testpoint.getClients().getMaxTimeWait(testpoint.getDesks().getMinClientTime())}\nTiempo minimo de espera: {testpoint.getClients().getMinTimeWait(testpoint.getDesks().getMinClientTime())}')
                             print(f'Tiempo promedio de atencion: {testpoint.getClients().getAvgAttentionTime()}\nTiempo maximo de atencion: {testpoint.getClients().getMaxAttentionTime()}')
                             print(f'Tiempo minimo de atencion: {testpoint.getClients().getMinAttentionTime()}')
                             print(testpoint.getDesks().toString())
@@ -173,6 +174,55 @@ def main():
                         testpoint.getDesks().desactiveDesk()
                     elif optionmanager == 4:
                         testpoint.attendClient()
+                    elif optionmanager == 5:
+                        client = input(Fore.YELLOW + "\nIngrese los datos del cliente con el formato 'DPI,nombre' ")
+                        client = client.split(',')
+                        transactions = ListTransaction()
+                        if len(client) == 2:  
+                            exittrans = 0
+                            while exittrans != 9:
+                                print(Fore.CYAN + testenterprise.getTransactions().toString())
+                                datatrans = input(Fore.YELLOW + "\nIngrese los datos de la transacción con el formato 'id,cantidad' o '9' para CONFIRMAR ")
+                                if datatrans == '9':
+                                    exittrans = 9
+                                else:
+                                    datatrans = datatrans.split(',')
+                                    if len(datatrans) == 2 and str(datatrans[1].strip()).isdigit:
+                                        transaction = testenterprise.getTransactions().getTransactionByCode(datatrans[0].strip())
+                                        if transaction.getCode() is not None:
+                                            newtransaction = Transaction(code=transaction.getCode(),name=transaction.getName(),time=transaction.getTime())
+                                            newtransaction.setQuantity(int(datatrans[1].strip()))
+                                            transactions.insert(transaction=newtransaction)
+                                            print(Fore.GREEN + 'Transacción agregada exitosamente')
+                                    else:
+                                        print(Fore.RED + 'La cantidad de parametros ingresados no es la correcta')
+                            clientin = Client(dpi=client[0],name=client[1],transactions=transactions,timewait=testpoint.getClients().getTime())
+                            if testpoint.getClients().insert(client=clientin):
+                                print(Fore.GREEN + 'Cliente agregado exitosamente')
+                                print(testpoint.callClient())
+                        else:
+                            print(Fore.RED + 'La cantidad de parametros ingresados no es la correcta')
+                    elif optionmanager == 6:
+                        clientaux = testpoint.getClients().getFirst()
+                        while clientaux:
+                            testpoint.attendClient()
+                            clientaux = clientaux.getNext()
+                        deskaux = testpoint.getDesks().getFirst()
+                        while deskaux:
+                            if deskaux.getDesk().getActive == True and deskaux.getDesk().getClient().getDpi() is not None:
+                                testpoint.attendClient()
+                            deskaux = deskaux.getNext()
+                        if testpoint.getCode() != None:
+                            testpoint.graphStatusPoint()
+                            print(Fore.WHITE + f'Punto de atencion: {testpoint.getCode()}')
+                            print(Fore.MAGENTA + f'Escritorios activos: {testpoint.getDesks().getActiveDesks()}\nEscritorios inactivos: {testpoint.getDesks().getDesactiveDesks()}')
+                            print(f'Clientes en espera: {testpoint.getClients().getClientsNum()}\nTiempo promedio de espera: {testpoint.getClients().getAvgTimeWait()}')
+                            print(f'Tiempo maximo de espera: {testpoint.getClients().getMaxTimeWait()}\nTiempo minimo de espera: {testpoint.getClients().getMinTimeWait()}')
+                            print(f'Tiempo promedio de atencion: {testpoint.getClients().getAvgAttentionTime()}\nTiempo maximo de atencion: {testpoint.getClients().getMaxAttentionTime()}')
+                            print(f'Tiempo minimo de atencion: {testpoint.getClients().getMinAttentionTime()}')
+                            print(testpoint.getDesks().toString())
+                        else:
+                            print(Fore.RED + 'No se ha seleccionado ningún punto')
     except Exception as e:
             print(Fore.RED + f'{e}')
 main()
